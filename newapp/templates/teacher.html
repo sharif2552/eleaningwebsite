@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+  
+<!-- Main content goes here -->
+{% block test %}
+<br>
+
+<div class="col-4">
+  <!-- Step 1: Add Category -->
+  <p class="text-secondary ">Step 1: Begin by adding a new category to organize your tests.</p>
+  <a href="{% url 'newapp:add_category' %}"><button type="button" class="btn btn-danger m-2 ">Add Category</button></a>
+
+  <!-- Step 2: Add Test -->
+  <p class="text-secondary ">Step 2: Create tests under relevant categories to challenge your learners.</p>
+  <a href="{% url 'newapp:add_test' %}"><button type="button" class="btn btn-danger m-2">Add Test</button></a>
+
+  <!-- Step 3: Add Questions -->
+  <p class="text-secondary ">Step 3: Craft questions for your tests to assess knowledge and skills.</p>
+  <a href="{% url 'newapp:add_question' %}"><button type="button" class="btn btn-danger m-2 ">Add Questions</button></a>
+</div>
+
+{% endblock test %}

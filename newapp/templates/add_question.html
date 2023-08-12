@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block test %}
+
+<form method="POST">
+    {% csrf_token %}
+<div class="form-floating mb-3 dark-bg text-light">
+        <select class="form-control dark-text" name="category" id="category" arial-lebel="Select Category">
+            <option value="" disabled selected>Select an option</option>
+            
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="category">Choose a Topic</label>
+</div>  
+
+
+<div class="form-floating mb-3 dark-bg text-light">
+    <input type="text" class="form-control dark-text" id="question" name = "question" >
+    <label for="question">Type the Question Here </label>
+</div>
+<div class="form-floating dark-bg text-light">
+    <input type="text" class="form-control dark-text" id="option1" name="option1" >
+    <label for="option1">Option1</label>
+</div>
+<div class="form-floating dark-bg text-light">
+    <input type="text" class="form-control dark-text" id="option2" name="option2" >
+    <label for="option2">Option2</label>
+</div>
+<div class="form-floating dark-bg text-light">
+    <input type="text" class="form-control dark-text" id="option3" name="option3" >
+    <label for="option3">Option3</label>
+</div>
+<div class="form-floating dark-bg text-light">
+    <input type="text" class="form-control dark-text" id="option4" name="option4">
+    <label for="option4">Option4</label>
+</div>
+<div class="form-floating dark-bg text-light">
+    <select class="form-control dark-text" id="correct_answer" name="correct_answer">
+        <option value="" disabled selected>Choose The Answer</option>
+        <option value="option1">Option One</option>
+        <option value="option2">Option Two</option>
+        <option value="option3">Option Three</option>
+        <option value="option4">Option Four</option>
+    </select>
+    <label for="correct_answer">Correct Answer</label>
+</div>
+
+
+<button  type="submit" class="btn btn-warning  shadow rounded-2" name="submit">submit</button>
+<button  type="text"  name ="another_question" class="btn btn-warning  shadow rounded-2 ">Add another question </button>
+</form>
+{% endblock test %}
