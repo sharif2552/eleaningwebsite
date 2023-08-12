@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 app_name  = 'newapp'
 
@@ -13,9 +16,17 @@ urlpatterns = [
     path('add_question/', views.add_question, name='add_question'),
     path('add_question/<int:categories>/', views.add_question, name='add_question'),
     path('test_category_filter/', views.test_category_filter, name='test_category_filter'),
+    path('add_article/', views.add_article, name='add_article'),
+    path('forum/', views.forum, name='forum'),
+    path('blog/', views.blog, name='blog'),
 
 
 
     
 
 ]
+
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse 
-from .models import test, Question, Category
+from .models import test, Question, Category ,Article
 from django.contrib.auth.decorators import login_required
 from .decorators import student_required, teacher_required
 # Create your views here.
@@ -22,6 +22,8 @@ def home(request):
         return render(request, 'teacher.html',context)
     elif request.user.user_type == 'student':
         return render(request, 'student.html',context)
+    else:
+        return HttpResponse('You need to be a teacher or a student')
 
 @login_required(login_url='/login/')
 @student_required
@@ -178,3 +180,37 @@ def add_test(request):
 
     categories = Category.objects.all()
     return render(request, 'add_test.html', {'categories': categories})
+
+
+
+@login_required(login_url='/login/')
+@teacher_required   
+def add_article(request):
+    if request.method == 'POST':
+        # Get form data from the request
+        if request.method == 'POST':
+            print("yes post request")
+        title = request.POST['title']
+        content = request.POST['content']
+        file = request.FILES['file']
+
+        # Create the article with the user reference
+        user = request.user 
+        print(user)
+         # The logged-in user
+        article = Article.objects.create(user=user, title=title, content=content, file=file)
+        print(article)
+        article.save()
+
+
+        return redirect('newapp:home')  # Redirect to the articles list page
+    else:
+        print("get request done")
+        return render(request, 'add_article.html')
+
+
+def forum(request):
+    return HttpResponse("forum view")
+
+def blog(request):
+    return HttpResponse("blog view")
