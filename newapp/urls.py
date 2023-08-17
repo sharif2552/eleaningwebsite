@@ -18,7 +18,11 @@ urlpatterns = [
     path('test_category_filter/', views.test_category_filter, name='test_category_filter'),
     path('add_article/', views.add_article, name='add_article'),
     path('forum/', views.forum, name='forum'),
-    path('blog/', views.blog, name='blog'),
+    path('all_article/', views.all_article, name='all_article'),
+
+    path('forum/', views.forum, name='forum'),
+
+
 
 
 

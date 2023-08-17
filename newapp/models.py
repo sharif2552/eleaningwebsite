@@ -45,3 +45,15 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+    
+from django.conf import settings
+from django.db import models
+
+class fquestion(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    text = models.TextField()
+
+class Answer(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    question = models.ForeignKey(fquestion, on_delete=models.CASCADE)
+    text = models.TextField()

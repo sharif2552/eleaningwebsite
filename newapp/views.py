@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse 
-from .models import test, Question, Category ,Article
+from .models import test, Question, Category ,Article , fquestion, Answer
 from django.contrib.auth.decorators import login_required
 from .decorators import student_required, teacher_required
 # Create your views here.
@@ -209,8 +209,48 @@ def add_article(request):
         return render(request, 'add_article.html')
 
 
-def forum(request):
-    return HttpResponse("forum view")
+def all_article(request):
+    # Fetch all articles from the database
+    articles = Article.objects.all()
+    print(articles)
+    
+    # Pass the list of articles to the template context
+    context = {'articles': articles}
+    
+    return render(request, 'all_article.html', context)
 
-def blog(request):
-    return HttpResponse("blog view")
+
+
+def article(request):
+    if request.method == 'GET':
+        context = {
+            'article' : Article
+        }
+        
+        return render(request, 'article.html', context)
+    
+
+    
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import fquestion, Answer
+
+@login_required
+def forum(request):
+    if request.method == 'POST':
+        if 'question_text' in request.POST:
+            # Handle submitted question
+            question_text = request.POST.get('question_text')
+            fquestion.objects.create(user=request.user, text=question_text)
+        elif 'answer_text' in request.POST:
+            # Handle submitted answer
+            question_id = request.POST.get('question_id')
+            text = request.POST.get('answer_text')
+            question = fquestion.objects.get(pk=question_id)
+            Answer.objects.create(user=request.user, question=question, text=text)
+        
+        return redirect('newapp:forum')  # Redirect to prevent form resubmission
+
+    questions = fquestion.objects.all().order_by('-id')
+    context = {'questions': questions}
+    return render(request, 'forum.html', context)

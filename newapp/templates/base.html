@@ -21,20 +21,21 @@
             <a class="navbar-brand" href="/">Hidden brand</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'newapp:home' %}">Home</a>
               </li>
-              <li>
-              <a class="nav-link" href="{% url 'accounts:logout' %}">LogOut</a>
 
-              </li>
               <li>
                 <a class="nav-link" href="{% url 'newapp:forum' %}">Student Forum</a>
   
                 </li>
                 <li>
-                  <a class="nav-link" href="{% url 'newapp:blog' %}">Blog</a>
+                  <a class="nav-link" href="{% url 'newapp:all_article' %}">Article</a>
     
                   </li>
+                  <li>
+                    <a class="nav-link" href="{% url 'accounts:logout' %}">LogOut</a>
+      
+                    </li>
 
             </ul>
 

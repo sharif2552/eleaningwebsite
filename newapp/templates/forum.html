@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block test %}
+    <div class="container mt-5">
+        <h1 class= "btn btn-danger">Welcome to the Forum</h1>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h2 class="btn btn-secondary">Ask a Question</h2>
+                <form method="post" action="{% url 'newapp:forum' %}" class="mb-4">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="question_text">Question:</label>
+                        <input type="text" class="form-control" name="question_text" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <h2 class="mt-4 btn btn-success">Questions and Answers</h2>
+        {% for question in questions %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.text }}</h5>
+                    <p class="card-subtitle mb-2 text-muted">Posted by: {{ question.user.username }}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Answers:</h6>
+                    <ul class="list-unstyled">
+                        {% for answer in question.answer_set.all %}
+                            <li>
+                                {{ answer.text }}
+                                <span class="text-muted"> - by {{ answer.user.username }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <form method="post" action="{% url 'newapp:forum' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                        <div class="form-group">
+                            <label for="answer_text">Your Answer:</label>
+                            <input type="text" class="form-control" name="answer_text" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Answer</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock test %}
