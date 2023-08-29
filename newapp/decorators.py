@@ -26,5 +26,5 @@ def teacher_required(view_func):
 
             return view_func(request, *args, **kwargs)
         else:
-            return HttpResponseForbidden("Permission denied.")
+            return HttpResponseForbidden("You are not a teacher! ")
     return _wrapped_view
