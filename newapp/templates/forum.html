@@ -2,36 +2,42 @@
 
 {% block test %}
     <div class="container mt-5">
-        <h1 class= "btn btn-danger">Welcome to the Forum</h1>
+        <h1 class= "btn btn-danger d-flex justify-content-center ">Welcome to the Forum</h1>
 
-        <div class="row mt-4">
+        <div class="row mt-4 border border-white">
             <div class="col-md-6">
-                <h2 class="btn btn-secondary">Ask a Question</h2>
+                <h2 class="btn btn-secondary mt-2">Ask a Question</h2>
                 <form method="post" action="{% url 'newapp:forum' %}" class="mb-4">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="question_text">Question:</label>
+                        <label class="font-weight-bold text-light" for="question_text ">Question:</label>
                         <input type="text" class="form-control" name="question_text" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
                 </form>
             </div>
         </div>
 
-        <h2 class="mt-4 btn btn-success">Questions and Answers</h2>
+        <h2 class="mt-4 btn btn-success d-flex justify-content-center">Questions and Answers</h2>
         {% for question in questions %}
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">{{ question.text }}</h5>
-                    <p class="card-subtitle mb-2 text-muted">Posted by: {{ question.user.username }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">Answers:</h6>
+                    <div class="border border-black p-1 mb-2">
+                        <h5 class="card-title text-info">{{ question.text }}</h5>
+                        <p class="card-subtitle mb-2 text-muted">Posted by: {{ question.user.username }}</p>   
+                    </div>
+
+                    <h6 class="card-subtitle mb-2 font-weight-bold text-danger">Answers:</h6>
                     <ul class="list-unstyled">
                         {% for answer in question.answer_set.all %}
                             <li>
-                                {{ answer.text }}
+                                {{ answer.text }} </br>
                                 <span class="text-muted"> - by {{ answer.user.username }}</span>
                             </li>
+                            <hr class="bg-danger">
+                           
                         {% endfor %}
+                        
                     </ul>
                     <form method="post" action="{% url 'newapp:forum' %}">
                         {% csrf_token %}
