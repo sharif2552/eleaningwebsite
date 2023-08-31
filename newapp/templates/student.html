@@ -5,11 +5,11 @@
 <br>
 
 
-<h2 id="h2">Choose the Category you want to give test.</h2>
+<h2 id="h2" class="text-center">Choose the Category you want to give test.</h2>
 
 
 
-<section>
+<section class="w-75 mx-auto my-5">
   <form method="POST" action="{% url 'newapp:test_category_filter' %}">
     {% csrf_token %}
     <select name="selected_category" class="form-select" aria-label="Select Category">
@@ -18,13 +18,13 @@
         <option value="{{ categoryy.id }}">{{ categoryy.name }}</option>
       {% endfor %}
     </select>
-    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="submit" class="btn btn-primary mt-3">Filter</button>
   </form>
 </section>
 
 
 
-<ul class="list-group ">
+<ul class="list-group w-75 mx-auto mt-1">
   {% for tst in test %}
   <p class="d-inline-flex gap-1 ">
       <button class="btn btn-secondary button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{ tst.id }}" aria-expanded="false" aria-controls="collapseExample{{ tst.id }}">
